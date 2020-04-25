@@ -4,7 +4,7 @@ import { white } from "../utils/colors";
 import { connect } from "react-redux";
 import { addDeck } from "../actions"
 
-class AddDecks extends Component {
+class AddCard extends Component {
 	state = {
 		deckTitle: ''
 	}
@@ -30,7 +30,8 @@ class AddDecks extends Component {
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<View style={styles.row}>
 					<Text style={styles.titletext}>What is the title of your new deck?</Text>
-					<TextInput style={styles.input} placeholder="Deck Title" value={deckTitle} onChange={(evt) => this.handleDeckTitle(evt.nativeEvent.text)} />
+					<TextInput style={styles.input} placeholder="Question" value={deckTitle} onChange={(evt) => this.handleDeckTitle(evt.nativeEvent.text)} />
+					<TextInput style={styles.input} placeholder="Answer" value={deckTitle} onChange={(evt) => this.handleDeckTitle(evt.nativeEvent.text)} />
 				</View>
 
 				<View style={styles.btnView}>
