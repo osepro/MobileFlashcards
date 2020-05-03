@@ -5,6 +5,7 @@ import pluralize from "pluralize";
 import { View, Alert, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { deleteDeck } from "../utils/api";
 import { delDeck } from "../actions";
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 class DeckCardsHome extends Component {
 	state = {
@@ -22,6 +23,8 @@ class DeckCardsHome extends Component {
 	}
 
 	startQuiz = (deck, deckId) => {
+		clearLocalNotification();
+		setLocalNotification();
 		this.props.navigation.navigate('StartQuiz', { deck: deck, deckId: deckId })
 	}
 

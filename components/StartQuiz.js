@@ -10,7 +10,6 @@ const height = Dimensions.get('window').height;
 
 class StartQuiz extends Component {
 	setMainHeader = () => {
-		const { deck } = this.props.route.params;
 		const { navigation } = this.props;
 		navigation.setOptions({
 			title: "Quiz"

@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import QuizResult from "./QuizResult";
 import { white, red } from "../utils/colors";
 import PropTypes from 'prop-types';
-import { getDailyReminderValue, clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 
 class QuizQuestion extends Component {
@@ -35,7 +34,6 @@ class QuizQuestion extends Component {
 				inCorrect: prevState.inCorrect + 1
 			}))
 		}
-		//clearLocalNotification().then(setLocalNotification);
 	}
 	flipAnswer = () => {
 		this.setState({
@@ -45,7 +43,6 @@ class QuizQuestion extends Component {
 
 	render() {
 		const { quiz } = this.props;
-		console.log(quiz)
 		return (
 			<View style={styles.questionContainer}>
 				{
