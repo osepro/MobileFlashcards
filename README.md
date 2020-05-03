@@ -31,9 +31,13 @@ Make sure you are able to open a command prompt/terminal.
 
  React Natibe Mobile application that allows users to study collections of flashcards
 
+# Testing Platform
 
+This project was tested on IOS platform and will perform better using modern IPhone.
 
-## Contributor Ose Agbadu, Thanks to the Udacity team Tyler McGinnis and Cyril Ajieh
+# Author - Ose Agbadu
+
+## Contributor  Thanks to the Udacity team Tyler McGinnis and Cyril Ajieh
 
 
 ![README Image](https://github.com/osepro/MobileFlashcards/blob/master/readmeImg/screen1.png)
