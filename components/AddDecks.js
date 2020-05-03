@@ -12,12 +12,6 @@ class AddDecks extends Component {
 		input: ''
 	}
 
-	handleNewDeckObject = () => ({
-		id: RandomGeneratedNumber(),
-		name: this.state.input,
-		cards: []
-	})
-
 	handleDeckTitle = (input) => {
 		this.setState({
 			input
@@ -25,19 +19,29 @@ class AddDecks extends Component {
 	}
 	handleDeckCreate = () => {
 		const { dispatch } = this.props;
-		let deck = this.handleNewDeckObject();
 
-		dispatch(addDeck(deck.id, deck.name))
-		saveDeck(deck);
+		const deck = {
+			id: RandomGeneratedNumber(),
+			name: this.state.input,
+			cards: []
+		}
 
-		this.props.navigation.navigate("DeckCardsHome", {
-			deckId: deck.id,
-			deck: deck.name
-		});
+		if (deck.name.length > 0) {
+			dispatch(addDeck(deck.id, deck.name))
+			saveDeck(deck);
 
-		this.setState(() => ({
-			input: ""
-		}));
+			this.props.navigation.navigate("DeckCardsHome", {
+				deckId: deck.id,
+				deck: deck.name
+			});
+
+			this.setState(() => ({
+				input: ""
+			}));
+		}
+		else {
+			alert("👋 Error!!! Deck name is compulsory");
+		}
 	}
 	render() {
 		const { input } = this.state;

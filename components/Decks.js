@@ -3,10 +3,8 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, AsyncStorage } fr
 import { white, gray } from "../utils/colors";
 import { connect } from "react-redux";
 import pluralize from "pluralize";
-import { retrieveDecks } from "../utils/api";
 import { getDecks } from "../actions";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { ceil } from "react-native-reanimated";
 
 
 class Decks extends Component {
@@ -24,8 +22,8 @@ class Decks extends Component {
 		AsyncStorage.clear();
 	}
 
-	deckItem = (deck, deckId, cards) => {
-		this.props.navigation.navigate('DeckCardsHome', { deck: deck, deckId: deckId, cards: cards })
+	deckItem = (deck, deckId) => {
+		this.props.navigation.navigate('DeckCardsHome', { deck: deck, deckId: deckId })
 	}
 
 	render() {
@@ -49,7 +47,7 @@ class Decks extends Component {
 				{Object.values(decks).length > 0 ? (
 					Object.values(decks).map((deck, i) => (
 						<View style={styles.row} key={i}>
-							<TouchableOpacity style={styles.decks} onPress={() => this.deckItem(deck.name, deck.id, deck.cards)}>
+							<TouchableOpacity style={styles.decks} onPress={() => this.deckItem(deck.name, deck.id)}>
 								<Text style={styles.titletext}>{deck.name}</Text>
 								<Text style={styles.cardtitle}>{`${deck.cards.length} ${pluralize("Card", deck.cards.length)}`} </Text>
 							</TouchableOpacity>

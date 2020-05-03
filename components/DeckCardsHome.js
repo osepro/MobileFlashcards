@@ -51,7 +51,7 @@ class DeckCardsHome extends Component {
 
 	render() {
 		this.setMainHeader();
-		const { deckId, deck, cards } = this.props.route.params;
+		const { deckId } = this.props.route.params;
 		const { state } = this.props;
 		const decks = state[deckId];
 		if (decks) {
