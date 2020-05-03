@@ -2,41 +2,49 @@ import React, { Component } from "react"
 import { View, Text, TextInput, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native"
 import { white } from "../utils/colors";
 import { connect } from "react-redux";
-import { addDeck } from "../actions"
+import { addCard } from "../actions";
+import { saveCard } from "../utils/api";
 
 class AddCard extends Component {
 	state = {
-		deckTitle: ''
+		question: '',
+		answer: '',
 	}
 
-	handleDeckTitle = (input) => {
+	handleAddCard = (input, name) => {
 		this.setState({
-			deckTitle: input
+			[name]: input
 		})
 	}
-	handleDeckCreate = () => {
-		const { dispatch, entry } = this.props
-		dispatch(addDeck({
-			[this.state.deckTitle]: this.state.deckTitle
-		}))
-		console.log(entry[this.state.deckTitle]);
-		this.setState({
-			deckTitle: ''
-		})
+
+	handleCreateQuestion = (deckId) => {
+		const { dispatch } = this.props
+		const { question, answer } = this.state;
+
+		if (question.length > 0 && answer.length > 0) {
+			dispatch(addCard(deckId, question, answer));
+			saveCard(deckId, { question, answer });
+			this.props.navigation.goBack();
+		}
+		else {
+			alert("👋 Error!!! Question and Answer are compulsory");
+		}
+
 	}
 	render() {
-		const { deckTitle } = this.state;
+		const { question, answer } = this.state;
+		const { deckId, deck } = this.props.route.params;
 		return (
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<View style={styles.row}>
-					<Text style={styles.titletext}>What is the title of your new deck?</Text>
-					<TextInput style={styles.input} placeholder="Question" value={deckTitle} onChange={(evt) => this.handleDeckTitle(evt.nativeEvent.text)} />
-					<TextInput style={styles.input} placeholder="Answer" value={deckTitle} onChange={(evt) => this.handleDeckTitle(evt.nativeEvent.text)} />
+					<Text style={styles.fillbelow}>Enter card for {deck}</Text>
+					<TextInput style={styles.input} placeholder="Question" value={question} onChangeText={(text) => this.handleAddCard(text, "question")} />
+					<TextInput style={styles.input} placeholder="Answer" value={answer} onChangeText={(text) => this.handleAddCard(text, "answer")} />
 				</View>
 
 				<View style={styles.btnView}>
-					<TouchableOpacity style={styles.btn} onPress={this.handleDeckCreate}>
-						<Text style={styles.btnText}>Create Deck</Text>
+					<TouchableOpacity style={styles.btn} onPress={() => this.handleCreateQuestion(deckId)}>
+						<Text style={styles.btnText}>Submit</Text>
 					</TouchableOpacity>
 				</View>
 
@@ -65,12 +73,16 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		textAlign: "center"
 	},
+	fillbelow: {
+		color: "#FF0000",
+		fontSize: 12
+	},
 	input: {
 		height: 44,
 		padding: 8,
 		borderWidth: 1,
 		borderColor: "#757575",
-		marginTop: 50,
+		marginTop: 20,
 		justifyContent: "center",
 		borderRadius: 5
 	},
@@ -86,8 +98,8 @@ const styles = StyleSheet.create({
 		paddingLeft: 80,
 		paddingRight: 80,
 		borderRadius: 5,
-		marginTop: 110,
-		marginBottom: 10
+		marginTop: 80,
+		marginBottom: 30
 	},
 	btnText: {
 		color: "#FFFFFF",
@@ -95,4 +107,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect(mapStateToProps)(AddDecks);
+export default connect(mapStateToProps)(AddCard);

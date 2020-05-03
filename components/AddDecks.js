@@ -2,35 +2,51 @@ import React, { Component } from "react"
 import { View, Text, TextInput, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from "react-native"
 import { white } from "../utils/colors";
 import { connect } from "react-redux";
-import { addDeck } from "../actions"
+import { addDeck } from "../actions";
+import { saveDeck } from "../utils/api";
+import { RandomGeneratedNumber } from "../utils/helpers";
 
 class AddDecks extends Component {
 	state = {
-		deckTitle: ''
+		deckTitle: '',
+		input: ''
 	}
+
+	handleNewDeckObject = () => ({
+		id: RandomGeneratedNumber(),
+		name: this.state.input,
+		cards: []
+	})
 
 	handleDeckTitle = (input) => {
 		this.setState({
-			deckTitle: input
+			input
 		})
 	}
 	handleDeckCreate = () => {
-		const { dispatch, entry } = this.props
-		dispatch(addDeck({
-			[this.state.deckTitle]: this.state.deckTitle
-		}))
-		console.log(entry[this.state.deckTitle]);
-		this.setState({
-			deckTitle: ''
-		})
+		const { dispatch } = this.props;
+		let deck = this.handleNewDeckObject();
+
+		dispatch(addDeck(deck.id, deck.name))
+		saveDeck(deck);
+
+		this.props.navigation.navigate("DeckCardsHome", {
+			deckId: deck.id,
+			deck: deck.name
+		});
+
+		this.setState(() => ({
+			input: ""
+		}));
 	}
 	render() {
-		const { deckTitle } = this.state;
+		const { input } = this.state;
+
 		return (
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<View style={styles.row}>
 					<Text style={styles.titletext}>What is the title of your new deck?</Text>
-					<TextInput style={styles.input} placeholder="Deck Title" value={deckTitle} onChange={(evt) => this.handleDeckTitle(evt.nativeEvent.text)} />
+					<TextInput style={styles.input} placeholder="Deck Title" value={input} onChange={(evt) => this.handleDeckTitle(evt.nativeEvent.text)} />
 				</View>
 
 				<View style={styles.btnView}>
@@ -46,7 +62,7 @@ class AddDecks extends Component {
 
 function mapStateToProps(state) {
 	return {
-		entry: state
+
 	}
 }
 

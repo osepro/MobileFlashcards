@@ -4,13 +4,16 @@ import store from "./store";
 import { Provider } from "react-redux";
 import Decks from "./components/Decks";
 import AddDecks from "./components/AddDecks";
+import AddCard from "./components/AddCard";
 import DeckCardsHome from "./components/DeckCardsHome";
+import StartQuiz from "./components/StartQuiz";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { purple, white } from "./utils/colors";
 import { createStackNavigator } from "@react-navigation/stack";
+import { setLocalNotification } from "./utils/helpers";
 
 const FlashCardStatusBar = ({ backgroundColor, ...props }) => {
 	return (
@@ -73,7 +76,7 @@ const StackConfig = {
 		component: TabNav,
 		options: { headerShown: false }
 	},
-	AddCards: {
+	DeckCardsHome: {
 		name: "DeckCardsHome",
 		component: DeckCardsHome,
 		options: {
@@ -83,22 +86,49 @@ const StackConfig = {
 			},
 			title: "Deck Cards Home"
 		}
-	}
+	},
+	AddCard: {
+		name: "AddCard",
+		component: AddCard,
+		options: {
+			headerTintColor: white,
+			headerStyle: {
+				backgroundColor: purple
+			},
+			title: "Add Card"
+		}
+	},
+	StartQuiz: {
+		name: "StartQuiz",
+		component: StartQuiz,
+		options: {
+			headerTintColor: white,
+			headerStyle: {
+				backgroundColor: purple
+			},
+			title: "Start Quiz"
+		}
+	},
 };
 
 const Stack = createStackNavigator();
 const MainNav = () => (
 	<Stack.Navigator {...StackNavigatorConfig}>
 		<Stack.Screen {...StackConfig["TabNav"]} />
-		<Stack.Screen {...StackConfig["AddCards"]} />
+		<Stack.Screen {...StackConfig["DeckCardsHome"]} />
+		<Stack.Screen {...StackConfig["AddCard"]} />
+		<Stack.Screen {...StackConfig["StartQuiz"]} />
 	</Stack.Navigator>
 );
 
 export default class App extends Component {
+	componentDidMount() {
+		setLocalNotification();
+	}
 	render() {
 		return (
 			<Provider store={store}>
-				<View style={{ flex: 1 }}>
+				<View style={styles.container}>
 					<FlashCardStatusBar backgroundColor={purple} barStyle="light-content" />
 					<NavigationContainer>
 						<MainNav />
@@ -112,19 +142,5 @@ export default class App extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginLeft: 10,
-		marginRight: 10
-	},
-	btn: {
-		backgroundColor: "#E53224",
-		padding: 10,
-		paddingLeft: 50,
-		paddingRight: 50,
-		justifyContent: "center",
-		alignItems: "center",
-		borderRadius: 5
-	},
-	btnText: {
-		color: "#FFF"
 	}
 });
