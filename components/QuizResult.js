@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { white, red } from "../utils/colors";
+import { white, red, blue } from "../utils/colors";
 import PropTypes from 'prop-types';
 
 
 class QuizResult extends Component {
 
+	viewDeck = () => {
+		this.props.navigation.navigate('Decks')
+	}
+
+	restartQuiz = (deck, deckId) => {
+		this.props.navigation.navigate('DeckCardsHome', { deck: deck, deckId: deckId })
+	}
+
 	render() {
-		const { correct, incorrect } = this.props;
+		const { correct, incorrect, deck, deckId } = this.props;
 		const total = correct + incorrect;
 		const correctPercent = (correct / total) * 100;
 		const inCorrectPercent = (incorrect / total) * 100
@@ -20,6 +28,14 @@ class QuizResult extends Component {
 				<Text style={styles.button}>{correctPercent.toFixed(0)}%</Text>
 				<Text style={styles.text}>InCorrect</Text>
 				<Text style={styles.buttonInc}>{inCorrectPercent.toFixed(0)}%</Text>
+				<View style={styles.row}>
+					<TouchableOpacity style={styles.resetBtn} onPress={() => this.restartQuiz(deck, deckId)}>
+						<Text style={styles.resetText}>Restart Quiz</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.resetBtn} onPress={() => this.viewDeck()}>
+						<Text style={styles.resetText}>Back To Deck</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		);
 	}
@@ -69,6 +85,23 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		color: white,
 	},
+	row: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "center",
+		marginTop: 50
+	},
+	resetText: {
+		color: blue,
+		textAlign: "center",
+	},
+	resetBtn: {
+		borderRadius: 5,
+		margin: 10,
+		padding: 15,
+		fontSize: 18,
+		width: 120,
+	}
 });
 
 export default QuizResult;

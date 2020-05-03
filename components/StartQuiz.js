@@ -36,7 +36,7 @@ class StartQuiz extends Component {
 								<Text style={styles.errortitle}>Sorry, you cannot take quiz because there are no cards in the deck.</Text>
 							</View>) :
 						(<View key={i}>
-							<QuizQuestion quiz={cardQuiz} deck={deckId} />
+							<QuizQuestion quiz={cardQuiz} deck={deck} deckId={deckId} navigation={this.props.navigation} />
 						</View>)
 					)
 				}

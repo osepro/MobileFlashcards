@@ -20,7 +20,7 @@ class QuizQuestion extends Component {
 
 	correctAnswer = (response) => {
 		const { quiz } = this.props;
-		if (this.state.currentQuestion <= quiz.length) {
+		if (this.state.currentQuestion <= quiz[0].length) {
 			this.setState((prevState) => ({ currentQuestion: prevState.currentQuestion + 1 }))
 		}
 
@@ -35,8 +35,7 @@ class QuizQuestion extends Component {
 				inCorrect: prevState.inCorrect + 1
 			}))
 		}
-
-		clearLocalNotification().then(setLocalNotification);
+		//clearLocalNotification().then(setLocalNotification);
 	}
 	flipAnswer = () => {
 		this.setState({
@@ -46,18 +45,19 @@ class QuizQuestion extends Component {
 
 	render() {
 		const { quiz } = this.props;
+		console.log(quiz)
 		return (
 			<View style={styles.questionContainer}>
 				{
-					this.state.currentQuestion <= quiz.length ? (
+					this.state.currentQuestion <= quiz[0].length ? (
 						Object.values(quiz).map((cardDetails, i) => (
 							<View key={i}>
 								{!cardDetails[this.state.currentQuestion] ?
-									(<QuizResult correct={this.state.correct} incorrect={this.state.inCorrect} />)
+									(<QuizResult correct={this.state.correct} deck={this.props.deck} deckId={this.props.deckId} incorrect={this.state.inCorrect} navigation={this.props.navigation} />)
 									: (<View>
 										<Text style={styles.quizCount}>{this.state.currentQuestion + 1}/{cardDetails.length}</Text>
 										{!this.state.flip && (<View>
-											<Text style={styles.questionsTxt}>{cardDetails[this.state.currentQuestion].question}?</Text>
+											<Text style={styles.questionsTxt}>{cardDetails[this.state.currentQuestion].question}</Text>
 											<TouchableOpacity onPress={() => this.flipAnswer()}>
 												<Text style={styles.textAns}>Answer</Text>
 											</TouchableOpacity>
@@ -83,7 +83,7 @@ class QuizQuestion extends Component {
 							</View>
 						)))
 
-						: <QuizResult correct={this.state.correct} incorrect={this.state.inCorrect} />
+						: <QuizResult correct={this.state.correct} deck={this.props.deck} deckId={this.props.deckId} incorrect={this.state.inCorrect} navigation={this.props.navigation} />
 				}
 			</View>
 		);
