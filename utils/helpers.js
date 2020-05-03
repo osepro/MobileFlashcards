@@ -3,9 +3,9 @@ import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 
 export const FLASHCARD_STORAGE_KEY = "Udacity:MobileFlashCards";
-const NOTIFICATION_KEY = "MobileFlashCards:notifications";
+const NOTIFICATION_KEY = "MobileFlash:notifications";
 
-export const RandomGeneratedNumber = () => {
+export function RandomGeneratedNumber() {
 	return (
 		Math.random()
 			.toString(36)
@@ -16,33 +16,28 @@ export const RandomGeneratedNumber = () => {
 	);
 };
 
-/*export function getDailyReminderValue() {
+export function createNotification() {
 	return {
-		today: "👋 Don't forget to practice your cards!"
-	};
-}*/
-
-export const createNotification = () => ({
-	title: "👋 Don't forget to practice",
-	body: "Your flash cards want to see you today.",
-	ios: {
-		sound: true
-	},
-	android: {
-		sound: true,
-		vibrate: true,
-		priority: "high",
-		sticky: false
+		title: "👋 Don't forget to practice",
+		body: "Your flash cards want to see you today.",
+		ios: {
+			sound: true
+		},
+		android: {
+			sound: true,
+			vibrate: true,
+			priority: "high",
+			sticky: false
+		}
 	}
-});
+}
 
-export const clearLocalNotification = () => {
-	AsyncStorage.removeItem(NOTIFICATION_KEY).then(
-		Notifications.cancelAllScheduledNotificationsAsync()
-	);
+export function clearLocalNotification() {
+	AsyncStorage.removeItem(NOTIFICATION_KEY)
+		.then(Notifications.cancelAllScheduledNotificationsAsync());
 };
 
-export const setLocalNotification = () => {
+export function setLocalNotification() {
 	AsyncStorage.getItem(NOTIFICATION_KEY)
 		.then(JSON.parse)
 		.then(data => {
