@@ -29,7 +29,7 @@ Make sure you are able to open a command prompt/terminal.
 
 # Mobile Flash Cards
 
- React Natibe Mobile application that allows users to study collections of flashcards
+ React Natibe Mobile application that allows users to study collections of flashcards. User can create a deck and add as many questions as needed. And set a reminder for practice each day. When done with the deck, a user can delete the deck.
 
 # Testing Platform
 
