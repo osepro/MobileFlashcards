@@ -27,7 +27,7 @@ class AddCard extends Component {
 			this.props.navigation.goBack();
 		}
 		else {
-			alert("👋 Error!!! Question and Answer are compulsory");
+			alert("👋 Error!!! Question and Answer are required");
 		}
 
 	}

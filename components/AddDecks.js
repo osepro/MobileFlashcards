@@ -40,7 +40,7 @@ class AddDecks extends Component {
 			}));
 		}
 		else {
-			alert("👋 Error!!! Deck name is compulsory");
+			alert("👋 Error!!! Deck name is required");
 		}
 	}
 	render() {

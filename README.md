@@ -1,10 +1,10 @@
 # Mobile Flash Cards
 
-Flash card readme application
+Flash card Mobile application that allows users to study collections of flashcards.
 
 # Getting Started
 
-Make sure you are able to open a command prompt/terminal.
+Make sure you are able to open a command prompt on Windows or Terminal on Mac.
 
 ## Installing
 
