@@ -20,7 +20,6 @@ Make sure you are able to open a command prompt on Windows or Terminal on Mac.
 ```bash
 `yarn install`
 ```
-
 - Start App On An Emulator
 
 ```bash
@@ -37,7 +36,9 @@ This project was tested on IOS platform and will perform better using modern IPh
 
 # Author - Ose Agbadu
 
-## Contributor  Thanks to the Udacity team Tyler McGinnis and Cyril Ajieh
+# Website - www.oseagbadu.com
+
+## Contributor  Thanks to the Udacity team Tyler McGinnis and Cyril Ajieh.
 
 
 ![README Image](https://github.com/osepro/MobileFlashcards/blob/master/readmeImg/screen1.png)
